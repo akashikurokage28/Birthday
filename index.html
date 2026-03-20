@@ -32,6 +32,8 @@
     </script>
 </head>
 <body>
+
+    <audio id="birthday-audio" src="./birthday-song.mp3" loop></audio>
     
 <div id="cake-overlay">
         <i class="fa-solid fa-xmark close-cake"></i>
@@ -379,6 +381,32 @@ function createHeartBurst() {
         setTimeout(() => heart.remove(), 1500);
     }
 }
+
+
+    // BG audio
+    window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('birthday-audio');
+    
+    // 1. Try to play immediately (Works if she interacted with the previous page)
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            // 2. If blocked, wait for her first click anywhere on the page
+            console.log("Autoplay blocked. Waiting for Akii's first touch...");
+            
+            const playOnInteraction = () => {
+                audio.play();
+                // Remove the listener so it doesn't trigger every time she clicks
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('touchstart', playOnInteraction);
+            };
+
+            document.addEventListener('click', playOnInteraction);
+            document.addEventListener('touchstart', playOnInteraction);
+        });
+    }
+});
 </script>
 
 </html>
