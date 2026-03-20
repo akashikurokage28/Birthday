@@ -4,7 +4,7 @@
  */
 
 const config = {
-    birthdate: "March 21, 2026 07:30:00",
+    birthdate: "March 21, 2026 07:15:00",
     name: "Akii"
 };
 
